@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin | TITAN FITNESS ACADEMY</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+
+<body class="admin-page">
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="admin-header">
+        <div class="admin-container admin-header-inner">
+
+            <a href="index.html" class="admin-brand">
+                <span class="admin-brand-main">TITAN</span>
+                <span class="admin-brand-sub">FITNESS ACADEMY</span>
+            </a>
+
+            <div class="admin-header-right">
+
+                <div class="admin-user">
+                    <span class="admin-user-label">ADMIN</span>
+                    <span id="adminEmail">Loading...</span>
+                </div>
+
+                <button
+                    id="logoutButton"
+                    class="admin-logout"
+                    type="button"
+                >
+                    LOGOUT
+                </button>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ==========================================
+         PAGE INTRO
+    =========================================== -->
+
+    <section class="admin-intro">
+
+        <div class="admin-container">
+
+            <div class="admin-eyebrow">
+                TITAN ADMIN <span>/</span> CONTROL CENTER
+            </div>
+
+            <h1 class="admin-title">
+                COMMAND <span>CENTER</span>
+            </h1>
+
+            <p class="admin-description">
+                Manage members, memberships, classes and renewal requests
+                from one place.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         MAIN
+    =========================================== -->
+
+    <main class="admin-main">
+
+        <div class="admin-container">
+
+
+            <!-- ==================================
+                 STATISTICS
+            =================================== -->
+
+            <section class="admin-stats">
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-top">
+                        <span>MEMBERS</span>
+                        <span>01</span>
+                    </div>
+
+                    <div
+                        id="totalMembers"
+                        class="stat-number"
+                    >
+                        —
+                    </div>
+
+                    <div class="stat-label">
+                        REGISTERED MEMBERS
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-top">
+                        <span>ACTIVE</span>
+                        <span>02</span>
+                    </div>
+
+                    <div
+                        id="activeMembers"
+                        class="stat-number stat-yellow"
+                    >
+                        —
+                    </div>
+
+                    <div class="stat-label">
+                        ACTIVE MEMBERSHIPS
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-top">
+                        <span>EXPIRING</span>
+                        <span>03</span>
+                    </div>
+
+                    <div
+                        id="expiringMembers"
+                        class="stat-number"
+                    >
+                        —
+                    </div>
+
+                    <div class="stat-label">
+                        NEED ATTENTION
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-top">
+                        <span>REQUESTS</span>
+                        <span>04</span>
+                    </div>
+
+                    <div
+                        id="pendingRequests"
+                        class="stat-number"
+                    >
+                        —
+                    </div>
+
+                    <div class="stat-label">
+                        PENDING REQUESTS
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 NAVIGATION TABS
+            =================================== -->
+
+            <nav class="admin-tabs">
+
+                <button
+                    class="admin-tab active"
+                    data-tab="members"
+                    type="button"
+                >
+                    MEMBERS
+                </button>
+
+                <button
+                    class="admin-tab"
+                    data-tab="classes"
+                    type="button"
+                >
+                    CLASSES
+                </button>
+
+                <button
+                    class="admin-tab"
+                    data-tab="requests"
+                    type="button"
+                >
+                    PLAN REQUESTS
+                </button>
+
+            </nav>
+
+
+            <!-- ==================================
+                 MEMBERS
+            =================================== -->
+
+            <section
+                id="membersTab"
+                class="admin-tab-content active"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+                        <div class="admin-eyebrow">
+                            MEMBERS
+                        </div>
+
+                        <h2>
+                            MEMBER DIRECTORY
+                        </h2>
+                    </div>
+
+                    <button
+                        id="refreshMembers"
+                        class="admin-outline-button"
+                        type="button"
+                    >
+                        REFRESH
+                    </button>
+
+                </div>
+
+
+                <div class="admin-toolbar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            id="memberSearch"
+                            type="text"
+                            placeholder="Search members..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <select id="memberFilter">
+                        <option value="all">
+                            ALL MEMBERS
+                        </option>
+
+                        <option value="active">
+                            ACTIVE
+                        </option>
+
+                        <option value="warning">
+                            EXPIRING
+                        </option>
+
+                        <option value="expired">
+                            EXPIRED
+                        </option>
+                        <option value="no-plan">NO PLAN</option>
+                    </select>
+
+
+                </div>
+
+
+                <div class="admin-table-wrap">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>MEMBER</th>
+                                <th>PLAN</th>
+                                <th>STATUS</th>
+                                <th>ENDS</th>
+                                <th>DAYS</th>
+                                <th>ACTION</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="membersTable">
+
+                            <tr>
+                                <td
+                                    colspan="6"
+                                    class="table-loading"
+                                >
+                                    Loading members...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 CLASSES
+            =================================== -->
+
+            <section
+                id="classesTab"
+                class="admin-tab-content"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <div class="admin-eyebrow">
+                            SCHEDULE
+                        </div>
+
+                        <h2>
+                            CLASS SCHEDULE
+                        </h2>
+
+                    </div>
+
+                    <button
+                        id="refreshClasses"
+                        class="admin-outline-button"
+                        type="button"
+                    >
+                        REFRESH
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="adminClassList"
+                    class="admin-class-grid"
+                >
+
+                    <div class="empty-state">
+                        Loading classes...
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 PLAN REQUESTS
+            =================================== -->
+
+            <section
+                id="requestsTab"
+                class="admin-tab-content"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <div class="admin-eyebrow">
+                            MEMBER REQUESTS
+                        </div>
+
+                        <h2>
+                            PLAN REQUESTS
+                        </h2>
+
+                    </div>
+
+                    <button
+                        id="refreshRequests"
+                        class="admin-outline-button"
+                        type="button"
+                    >
+                        REFRESH
+                    </button>
+
+                </div>
+
+
+                <div class="admin-table-wrap">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>MEMBER</th>
+                                <th>REQUEST</th>
+                                <th>PLAN</th>
+                                <th>STATUS</th>
+                                <th>DATE</th>
+                                <th>ACTION</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="requestsTable">
+
+                            <tr>
+                                <td
+                                    colspan="6"
+                                    class="table-loading"
+                                >
+                                    Loading requests...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 ADMIN MESSAGE
+            =================================== -->
+
+            <div
+                id="adminMessage"
+                class="admin-message"
+            ></div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- ==========================================
+         MEMBER DETAIL MODAL
+    =========================================== -->
+
+    <div
+        id="memberModal"
+        class="admin-modal"
+        aria-hidden="true"
+    >
+
+        <div class="admin-modal-backdrop"></div>
+
+        <div class="admin-modal-box">
+
+            <div class="admin-modal-header">
+
+                <div>
+
+                    <div class="admin-eyebrow">
+                        MEMBER PROFILE
+                    </div>
+
+                    <h2 id="modalMemberName">
+                        MEMBER
+                    </h2>
+
+                </div>
+
+                <button
+                    id="closeMemberModal"
+                    class="modal-close"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="admin-modal-body">
+
+                <div class="member-detail-grid">
+
+                    <div class="member-detail-item">
+
+                        <span>EMAIL</span>
+
+                        <strong id="modalMemberEmail">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="member-detail-item">
+
+                        <span>PLAN</span>
+
+                        <strong id="modalMemberPlan">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="member-detail-item">
+
+                        <span>STATUS</span>
+
+                        <strong id="modalMemberStatus">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="member-detail-item">
+
+                        <span>END DATE</span>
+
+                        <strong id="modalMemberEnd">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-action-panel">
+
+                    <div class="admin-eyebrow">
+                        MEMBERSHIP ACTION
+                    </div>
+
+                    <div class="admin-action-buttons">
+
+                        <button
+                            id="markExpiringButton"
+                            class="admin-action-button"
+                            type="button"
+                        >
+                            MARK EXPIRING
+                        </button>
+
+                        <button
+                            id="syncMemberButton"
+                            class="admin-action-button yellow"
+                            type="button"
+                        >
+                            SYNC MEMBERSHIP
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script type="module" src="./js/admin.js"></script>
+
+</body>
+</html>

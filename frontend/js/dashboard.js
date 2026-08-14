@@ -93,50 +93,54 @@ setupAvatarUpload();
 ============================================================ */
 
 async function loadSubscription() {
-
     try {
-
         const response = await fetch(
             `${CONFIG.WORKER_URL}/api/subscription`,
             {
                 method: 'POST',
-
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-
-                body: JSON.stringify({
-                    user_id: currentUser.id
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: currentUser.id })
             }
         );
 
-
-        if (!response.ok) {
-            throw new Error('Subscription request failed');
-        }
-
-
         const data = await response.json();
 
-        currentSubscription = data;
+        // Workflow 1's Code node returns { error: 'No subscription found for this user' }
+        // when the Supabase lookup comes back empty — treat that as "no plan yet", not a failure.
+        if (!response.ok || data.error) {
+            renderNoSubscription();
+            return;
+        }
 
+        currentSubscription = data;
         renderSubscription(data);
 
     } catch (error) {
-
-        console.error(
-            'Could not load subscription:',
-            error
-        );
-
-        document.getElementById(
-            'daysRemaining'
-        ).textContent = '—';
-
+        console.error('Could not load subscription:', error);
+        renderNoSubscription();
     }
 }
 
+function renderNoSubscription() {
+    document.getElementById('planName').textContent = 'NO ACTIVE PLAN';
+    document.getElementById('daysRemaining').textContent = '—';
+
+    const badge = document.getElementById('statusBadge');
+    badge.textContent = 'PENDING';
+    badge.className = 'membership-status badge-pending';
+
+    document.getElementById('endDate').textContent = '—';
+
+    const ring = document.getElementById('ringFill');
+    ring.style.strokeDashoffset = ring.style.strokeDasharray || 465;
+
+    // No renew button — nothing to renew yet, just show the request-sent state
+    document.getElementById('renewButton').style.display = 'none';
+
+    const message = document.getElementById('renewMessage');
+    message.textContent = "Your plan request is in — our team will activate your access shortly.";
+    message.classList.add('info');
+}
 
 /* ============================================================
    RENDER SUBSCRIPTION
@@ -422,19 +426,13 @@ function setupRenewButton() {
 
 
             if (error) {
-
-                console.error(error);
-
-                message.textContent =
-                    'Something went wrong — try again.';
-
-                button.disabled = false;
-
-                button.innerHTML =
-                    'REQUEST RENEWAL <span>↗</span>';
-
-                return;
-            }
+    console.error(error);
+    message.textContent = 'Something went wrong — try again.';
+    message.classList.remove('info');
+    button.disabled = false;
+    button.innerHTML = 'REQUEST RENEWAL <span>↗</span>';
+    return;
+}
 
 
             button.innerHTML =

@@ -1403,3 +1403,12 @@
 @media (max-width: 650px) {
     .user-identity .user-email { display: none; }
 }
+
+.badge-pending {
+    color: #888 !important;
+    border-color: #444 !important;
+}
+
+.renew-message.info {
+    color: #aaa;
+}
