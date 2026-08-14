@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dashboard | TITAN FITNESS ACADEMY</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/dashboard.css" />
+  </head>
+
+  <body class="dashboard-page">
+    <div class="dashboard-layout">
+      <!-- =====================================================
+             HEADER
+        ====================================================== -->
+      <header class="dashboard-header">
+        <div class="container dashboard-header-inner">
+          <a href="index.html" class="dashboard-brand">
+            <span class="brand-title">TITAN</span>
+            <span class="brand-subtitle">FITNESS ACADEMY</span>
+          </a>
+
+        <div class="dashboard-user-actions">
+
+    <div class="user-identity">
+        <button id="avatarButton" class="avatar-button" type="button" aria-label="Change profile photo">
+            <img id="avatarImage" class="avatar-image" style="display:none;" alt="">
+            <span id="avatarInitial" class="avatar-initial">?</span>
+            <div id="avatarSkeleton" class="avatar-skeleton" style="display:none;"></div>
+        </button>
+        <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+        <span id="userEmail" class="user-email"></span>
+    </div>
+
+    <button id="logoutButton" class="logout-button" type="button">LOGOUT</button>
+
+</div>
+        </div>
+      </header>
+
+      <!-- =====================================================
+             PAGE INTRO
+        ====================================================== -->
+      <section class="dashboard-intro">
+        <div class="container">
+          <div class="dashboard-eyebrow">
+            <span>TITAN MEMBER</span>
+            <i>/</i>
+            <strong>DASHBOARD</strong>
+          </div>
+
+          <h1 class="dashboard-welcome">
+            WELCOME BACK,
+            <span id="memberName">MEMBER</span>
+          </h1>
+        </div>
+      </section>
+
+      <!-- =====================================================
+             MAIN DASHBOARD
+        ====================================================== -->
+      <main class="dashboard-main">
+        <div class="container dashboard-content">
+          <div class="dashboard-grid">
+            <!-- =================================================
+                         MEMBERSHIP CARD
+                    ================================================== -->
+            <section class="dashboard-card membership-card">
+              <div class="card-top-line"></div>
+
+              <div class="card-heading">
+                <div>
+                  <div class="card-eyebrow">MEMBERSHIP STATUS</div>
+
+                  <h2>YOUR PLAN</h2>
+                </div>
+
+                <span class="card-number">01</span>
+              </div>
+
+              <div id="planName" class="membership-plan">UNAVAILABLE</div>
+
+              <!-- Progress ring -->
+              <div class="membership-progress">
+                <div class="progress-ring-wrapper">
+                  <svg
+                    class="progress-ring"
+                    viewBox="0 0 180 180"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      class="ring-background"
+                      cx="90"
+                      cy="90"
+                      r="74"
+                    ></circle>
+
+                    <circle
+                      id="ringFill"
+                      class="ring-progress"
+                      cx="90"
+                      cy="90"
+                      r="74"
+                    ></circle>
+                  </svg>
+
+                  <div class="progress-ring-center">
+                    <span id="daysRemaining" class="days-number"> — </span>
+
+                    <span class="days-label"> DAYS LEFT </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Membership details -->
+              <div class="membership-details">
+                <div class="membership-detail">
+                  <span> STATUS </span>
+
+                  <strong id="statusBadge" class="membership-status">
+                    —
+                  </strong>
+                </div>
+
+                <div class="membership-detail">
+                  <span> RENEWS / ENDS </span>
+
+                  <strong id="endDate"> — </strong>
+                </div>
+              </div>
+
+              <button
+                id="renewButton"
+                class="renew-button"
+                type="button"
+                style="display: none"
+              >
+                REQUEST RENEWAL
+                <span>↗</span>
+              </button>
+
+              <div id="renewMessage" class="renew-message"></div>
+            </section>
+
+            <!-- =================================================
+                         CLASS SCHEDULE
+                    ================================================== -->
+            <section class="dashboard-card schedule-card">
+              <div class="card-top-line"></div>
+
+              <div class="card-heading">
+                <div>
+                  <div class="card-eyebrow">THIS WEEK</div>
+
+                  <h2>CLASS SCHEDULE</h2>
+                </div>
+
+                <span class="card-number"> 02 </span>
+              </div>
+
+              <div id="classList" class="class-list">
+                <div class="schedule-loading">Loading classes...</div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+      <footer class="dashboard-footer">
+        <div class="container">
+          <span> TITAN FITNESS ACADEMY </span>
+
+          <strong> MEMBER PORTAL </strong>
+        </div>
+      </footer>
+    </div>
+
+    <!-- =========================================================
+         AI CHAT BUTTON
+    ========================================================== -->
+
+    <button
+      id="chatToggle"
+      class="chat-toggle"
+      type="button"
+      aria-label="Open TITAN AI"
+    >
+      <span class="chat-icon">💬</span>
+    </button>
+
+    <!-- =========================================================
+         AI CHAT PANEL
+    ========================================================== -->
+
+    <aside id="chatDrawer" class="chat-drawer" aria-hidden="true">
+      <!-- Chat header -->
+      <div class="chat-header">
+        <div class="chat-brand">
+          <div class="chat-logo">T</div>
+
+          <div class="chat-brand-info">
+            <div class="chat-title">TITAN AI</div>
+
+            <div class="chat-online">
+              <span></span>
+              ONLINE
+            </div>
+          </div>
+        </div>
+
+        <button
+          id="chatClose"
+          class="chat-close"
+          type="button"
+          aria-label="Close TITAN AI"
+        >
+          ×
+        </button>
+      </div>
+
+      <!-- Chat introduction -->
+      <div class="chat-intro">
+        <div class="chat-intro-label">YOUR PERSONAL FITNESS ASSISTANT</div>
+
+        <h2>
+          HOW CAN I
+          <span>HELP?</span>
+        </h2>
+
+        <p>
+          Ask me about your membership, classes, training, or general fitness
+          questions.
+        </p>
+
+        <!-- Quick actions -->
+        <div class="chat-quick-actions">
+          <button
+            type="button"
+            class="quick-action"
+            data-message="Show me my classes."
+          >
+            MY CLASSES
+          </button>
+
+          <button
+            type="button"
+            class="quick-action"
+            data-message="Tell me about my membership."
+          >
+            MY MEMBERSHIP
+          </button>
+
+          <button
+            type="button"
+            class="quick-action"
+            data-message="Give me a fitness tip."
+          >
+            FITNESS TIP
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat messages -->
+      <div id="chatMessages" class="chat-messages">
+        <div class="ai-message ai-message-bot">
+          <div class="message-avatar">T</div>
+
+          <div class="message-content">
+            Hey! I'm TITAN AI. How can I help you today?
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat input -->
+      <form id="chatForm" class="chat-input-row">
+        <input
+          type="text"
+          id="chatInput"
+          placeholder="Ask TITAN AI..."
+          autocomplete="off"
+          required
+        />
+
+        <button type="submit" aria-label="Send message">➤</button>
+      </form>
+    </aside>
+
+    <script type="module" src="./js/dashboard.js"></script>
+  </body>
+</html>

@@ -1,5 +1,337 @@
 <!DOCTYPE html>
-<html>
-<head><title>Titan Fitness Academy</title></head>
-<body><h1>Titan Fitness Academy — coming soon</h1></body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TITAN FITNESS ACADEMY</title>
+
+    <meta name="description" content="Titan Fitness Academy — Train harder. Move stronger. Become a Titan.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="nav-container">
+
+            <a href="index.html" class="brand">
+                <span class="brand-main">TITAN</span>
+                <span class="brand-sub">FITNESS ACADEMY</span>
+            </a>
+
+            <nav class="desktop-nav">
+                <a href="#about">ABOUT</a>
+                <a href="#training">TRAINING</a>
+                <a href="#method">METHOD</a>
+                <a href="#membership">MEMBERSHIP</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="login.html" class="login-link">LOGIN</a>
+                <a href="signup.html" class="nav-cta">JOIN TITAN <span>↗</span></a>
+            </div>
+
+            <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Open menu">
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about">ABOUT</a>
+            <a href="#training">TRAINING</a>
+            <a href="#method">METHOD</a>
+            <a href="#membership">MEMBERSHIP</a>
+            <a href="login.html">LOGIN</a>
+            <a href="signup.html">JOIN TITAN ↗</a>
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-image"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-grid"></div>
+
+            <div class="hero-content">
+
+                <div class="hero-kicker reveal reveal-1">
+                    <span class="line"></span>
+                    TITAN FITNESS ACADEMY
+                    <span class="line"></span>
+                </div>
+
+                <h1>
+                    <span class="split-line"><span class="split-line-inner" style="animation-delay:0.3s">FORGE</span></span>
+                    <span class="split-line"><span class="split-line-inner" style="animation-delay:0.42s;color:var(--yellow)">YOUR</span></span>
+                    <span class="split-line"><span class="split-line-inner" style="animation-delay:0.54s">TITAN.</span></span>
+                </h1>
+
+                <p class="hero-description reveal reveal-3">
+                    Strength is built through discipline. Performance is built through consistency.
+                    Step into a training system designed to make you stronger than yesterday.
+                </p>
+
+                <div class="hero-buttons reveal reveal-4">
+                    <a href="signup.html" class="primary-button">START YOUR JOURNEY <span>↗</span></a>
+                    <a href="#training" class="outline-button">EXPLORE TRAINING</a>
+                </div>
+
+            </div>
+
+
+            <div class="hero-bottom">
+                <div class="hero-stat"><strong>01</strong><span>TRAIN</span></div>
+                <div class="hero-stat"><strong>02</strong><span>BUILD</span></div>
+                <div class="hero-stat"><strong>03</strong><span>PERFORM</span></div>
+                <div class="hero-stat"><strong>04</strong><span>EVOLVE</span></div>
+            </div>
+
+            <div class="scroll-indicator">
+                <span>SCROLL TO EXPLORE</span>
+                <div class="scroll-line"></div>
+            </div>
+
+        </section>
+
+
+        <section class="intro section" id="about">
+            <div class="container">
+
+                <div class="section-label"><span>01</span> THE TITAN MINDSET</div>
+
+                <div class="intro-layout scroll-reveal">
+
+                    <h2>DON'T JUST <span>WORK OUT.</span> BUILD YOURSELF.</h2>
+
+                    <div class="intro-copy">
+                        <p>Titan Fitness Academy is built for people who refuse to settle for average.</p>
+                        <p>Our approach combines structured training, expert guidance and accountability to help you build strength that goes beyond the gym.</p>
+                        <a href="#method" class="text-link">DISCOVER THE TITAN METHOD <span>→</span></a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="training section" id="training">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="section-label"><span>02</span> TRAINING SYSTEM</div>
+                    <h2>TRAIN <span>WITH PURPOSE.</span></h2>
+                    <p>Every session has a purpose. Every movement has a reason.</p>
+                </div>
+
+                <div class="training-grid scroll-reveal-group">
+
+                    <article class="training-card training-card-large">
+                        <div class="training-image strength-image"></div>
+                        <div class="training-overlay"></div>
+                        <div class="training-content">
+                            <span class="training-number">01</span>
+                            <h3>STRENGTH</h3>
+                            <p>Build raw strength and develop the foundation your body needs.</p>
+                            <span class="training-arrow">↗</span>
+                        </div>
+                    </article>
+
+                    <article class="training-card">
+                        <div class="training-image conditioning-image"></div>
+                        <div class="training-overlay"></div>
+                        <div class="training-content">
+                            <span class="training-number">02</span>
+                            <h3>CONDITIONING</h3>
+                            <p>Push your endurance and discover what your body is capable of.</p>
+                            <span class="training-arrow">↗</span>
+                        </div>
+                    </article>
+
+                    <article class="training-card">
+                        <div class="training-image performance-image"></div>
+                        <div class="training-overlay"></div>
+                        <div class="training-content">
+                            <span class="training-number">03</span>
+                            <h3>PERFORMANCE</h3>
+                            <p>Move better. Move faster. Perform at your highest level.</p>
+                            <span class="training-arrow">↗</span>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="statement">
+            <div class="statement-image"></div>
+            <div class="statement-overlay"></div>
+            <div class="container">
+                <div class="statement-content scroll-reveal">
+                    <span>DISCIPLINE OVER MOTIVATION.</span>
+                    <h2>SHOW UP.<br>PUT IN THE WORK.<br><em>BECOME MORE.</em></h2>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="method section" id="method">
+            <div class="container">
+
+                <div class="section-label"><span>03</span> THE TITAN METHOD</div>
+
+                <div class="method-header">
+                    <h2>FOUR STEPS.<br><span>ONE STANDARD.</span></h2>
+                    <p>Progress doesn't happen by accident. It happens when the process is intentional.</p>
+                </div>
+
+                <div class="method-list scroll-reveal-group">
+
+                    <div class="method-item">
+                        <div class="method-number">01</div>
+                        <div class="method-name">TRAIN</div>
+                        <div class="method-description">Follow structured sessions designed around real progress.</div>
+                        <div class="method-arrow">→</div>
+                    </div>
+
+                    <div class="method-item">
+                        <div class="method-number">02</div>
+                        <div class="method-name">BUILD</div>
+                        <div class="method-description">Develop strength, endurance and confidence through consistency.</div>
+                        <div class="method-arrow">→</div>
+                    </div>
+
+                    <div class="method-item">
+                        <div class="method-number">03</div>
+                        <div class="method-name">PERFORM</div>
+                        <div class="method-description">Take what you build in training into everything you do.</div>
+                        <div class="method-arrow">→</div>
+                    </div>
+
+                    <div class="method-item">
+                        <div class="method-number">04</div>
+                        <div class="method-name">EVOLVE</div>
+                        <div class="method-description">Never become comfortable with yesterday's version of yourself.</div>
+                        <div class="method-arrow">→</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="membership section" id="membership">
+            <div class="container">
+                <div class="membership-box scroll-reveal">
+
+                    <div class="membership-copy">
+                        <div class="section-label"><span>04</span> MEMBERSHIP</div>
+                        <h2>YOUR NEXT <span>LEVEL</span> STARTS HERE.</h2>
+                        <p>Create your Titan account and take control of your training journey.</p>
+                        <a href="signup.html" class="primary-button">JOIN TITAN <span>↗</span></a>
+                    </div>
+
+                    <div class="membership-side">
+                        <div class="membership-mark">T</div>
+                        <span>TITAN FITNESS<br>ACADEMY</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="final-cta">
+            <div class="container">
+                <span class="final-kicker">NO EXCUSES. NO SHORTCUTS.</span>
+                <h2>BECOME <span>A TITAN.</span></h2>
+                <a href="signup.html" class="final-button">START TRAINING <span>↗</span></a>
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <div class="container footer-top">
+
+            <div class="footer-brand">
+                <div class="brand-main">TITAN</div>
+                <div class="brand-sub">FITNESS ACADEMY</div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#about">ABOUT</a>
+                <a href="#training">TRAINING</a>
+                <a href="#method">METHOD</a>
+                <a href="login.html">LOGIN</a>
+                <a href="signup.html">JOIN TITAN</a>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© <span id="year"></span> TITAN FITNESS ACADEMY</span>
+            <span>TRAIN HARD. STAY CONSISTENT.</span>
+        </div>
+
+    </footer>
+
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const menuButton = document.getElementById("mobileMenuButton");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuButton.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+            menuButton.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".mobile-menu a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.remove("open");
+                menuButton.classList.remove("active");
+            });
+        });
+
+        const header = document.querySelector(".site-header");
+        window.addEventListener("scroll", () => {
+            header.classList.toggle("scrolled", window.scrollY > 40);
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll(".scroll-reveal, .scroll-reveal-group").forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
+
+</body>
 </html>
