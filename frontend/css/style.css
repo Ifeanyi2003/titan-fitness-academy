@@ -206,18 +206,35 @@ button {
 
 
 .mobile-menu {
-    display: none;
+    display: flex;
     position: absolute;
-    top: 92px;
+    top: 90px;
     left: 0;
     width: 100%;
     background: var(--black);
     border-bottom: 1px solid var(--border);
     flex-direction: column;
     padding: 25px;
-    transform: translateY(-150%);
-    transition: .35s;
+    transform: translateY(-20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .3s ease, opacity .3s ease;
+    z-index: 99;
 }
+
+.mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Guarantee it never shows on desktop, regardless of .open state */
+@media (min-width: 901px) {
+    .mobile-menu {
+        display: none !important;
+    }
+}
+
 
 .mobile-menu.open {
     transform: translateY(0);
