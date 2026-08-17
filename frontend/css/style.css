@@ -259,6 +259,7 @@ button {
     display: flex;
     align-items: center;
     overflow: hidden;
+    padding-bottom: 120px; /* reserves space so hero-content never collides with hero-bottom */
 }
 
 
