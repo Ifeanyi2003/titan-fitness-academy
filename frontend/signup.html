@@ -7,10 +7,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
+    <style>
+    html, body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    main {
+        height: 100vh;
+        padding-top: 90px; /* clears the fixed header */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-y: auto; /* safety: still scrolls internally on very short/small screens instead of clipping content */
+    }
+</style>
 </head>
 <body>
 
-    <header class="site-header">
+    <header class="site-header app-header">
         <div class="nav-container">
             <a href="index.html" class="brand">
                 <span class="brand-main">TITAN</span>

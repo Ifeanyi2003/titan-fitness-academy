@@ -87,7 +87,6 @@
 
         <div class="admin-container">
 
-
             <!-- ==================================
                  STATISTICS
             =================================== -->
@@ -95,28 +94,22 @@
             <section class="admin-stats">
 
                 <div class="admin-stat-card">
-
                     <div class="stat-top">
                         <span>MEMBERS</span>
                         <span>01</span>
                     </div>
 
-                    <div
-                        id="totalMembers"
-                        class="stat-number"
-                    >
+                    <div id="totalMembers" class="stat-number">
                         —
                     </div>
 
                     <div class="stat-label">
                         REGISTERED MEMBERS
                     </div>
-
                 </div>
 
 
                 <div class="admin-stat-card">
-
                     <div class="stat-top">
                         <span>ACTIVE</span>
                         <span>02</span>
@@ -132,12 +125,10 @@
                     <div class="stat-label">
                         ACTIVE MEMBERSHIPS
                     </div>
-
                 </div>
 
 
                 <div class="admin-stat-card">
-
                     <div class="stat-top">
                         <span>EXPIRING</span>
                         <span>03</span>
@@ -153,12 +144,10 @@
                     <div class="stat-label">
                         NEED ATTENTION
                     </div>
-
                 </div>
 
 
                 <div class="admin-stat-card">
-
                     <div class="stat-top">
                         <span>REQUESTS</span>
                         <span>04</span>
@@ -174,7 +163,6 @@
                     <div class="stat-label">
                         PENDING REQUESTS
                     </div>
-
                 </div>
 
             </section>
@@ -276,9 +264,11 @@
                         <option value="expired">
                             EXPIRED
                         </option>
-                        <option value="no-plan">NO PLAN</option>
-                    </select>
 
+                        <option value="no-plan">
+                            NO PLAN
+                        </option>
+                    </select>
 
                 </div>
 
@@ -288,23 +278,22 @@
                     <table class="admin-table">
 
                         <thead>
-
                             <tr>
                                 <th>MEMBER</th>
                                 <th>PLAN</th>
                                 <th>STATUS</th>
                                 <th>ENDS</th>
                                 <th>DAYS</th>
+                                <th>REMAINING</th>
                                 <th>ACTION</th>
                             </tr>
-
                         </thead>
 
                         <tbody id="membersTable">
 
                             <tr>
                                 <td
-                                    colspan="6"
+                                    colspan="7"
                                     class="table-loading"
                                 >
                                     Loading members...
@@ -407,7 +396,6 @@
                     <table class="admin-table">
 
                         <thead>
-
                             <tr>
                                 <th>MEMBER</th>
                                 <th>REQUEST</th>
@@ -416,7 +404,6 @@
                                 <th>DATE</th>
                                 <th>ACTION</th>
                             </tr>
-
                         </thead>
 
                         <tbody id="requestsTable">
@@ -447,7 +434,6 @@
                 id="adminMessage"
                 class="admin-message"
             ></div>
-
 
         </div>
 
@@ -498,50 +484,42 @@
                 <div class="member-detail-grid">
 
                     <div class="member-detail-item">
-
                         <span>EMAIL</span>
-
                         <strong id="modalMemberEmail">
                             —
                         </strong>
-
                     </div>
 
 
                     <div class="member-detail-item">
-
                         <span>PLAN</span>
-
                         <strong id="modalMemberPlan">
                             —
                         </strong>
-
                     </div>
 
 
                     <div class="member-detail-item">
-
                         <span>STATUS</span>
-
                         <strong id="modalMemberStatus">
                             —
                         </strong>
-
                     </div>
 
 
                     <div class="member-detail-item">
-
                         <span>END DATE</span>
-
                         <strong id="modalMemberEnd">
                             —
                         </strong>
-
                     </div>
 
                 </div>
 
+
+                <!-- ==================================
+                     MEMBERSHIP ACTION
+                =================================== -->
 
                 <div class="admin-action-panel">
 
@@ -550,6 +528,14 @@
                     </div>
 
                     <div class="admin-action-buttons">
+
+                        <button
+                            id="activateMemberButton"
+                            class="admin-action-button yellow"
+                            type="button"
+                        >
+                            ACTIVATE MEMBERSHIP
+                        </button>
 
                         <button
                             id="markExpiringButton"
@@ -561,10 +547,166 @@
 
                         <button
                             id="syncMemberButton"
-                            class="admin-action-button yellow"
+                            class="admin-action-button"
                             type="button"
                         >
                             SYNC MEMBERSHIP
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         ACTIVATE MEMBERSHIP MODAL
+    =========================================== -->
+
+    <div
+        id="activationModal"
+        class="admin-modal"
+        aria-hidden="true"
+    >
+
+        <div class="admin-modal-backdrop activation-backdrop"></div>
+
+        <div class="admin-modal-box activation-modal-box">
+
+            <div class="admin-modal-header">
+
+                <div>
+
+                    <div class="admin-eyebrow">
+                        MEMBERSHIP SETUP
+                    </div>
+
+                    <h2>
+                        ACTIVATE PLAN
+                    </h2>
+
+                </div>
+
+                <button
+                    id="closeActivationModal"
+                    class="modal-close"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="admin-modal-body">
+
+                <div class="activation-member-preview">
+
+                    <div class="activation-avatar" id="activationAvatar">
+                        T
+                    </div>
+
+                    <div>
+                        <strong id="activationMemberName">
+                            MEMBER
+                        </strong>
+
+                        <span id="activationMemberPlan">
+                            STANDARD PLAN
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="activation-form">
+
+                    <div class="activation-field">
+
+                        <label for="membershipDays">
+                            MEMBERSHIP DURATION
+                        </label>
+
+                        <div class="days-input-wrapper">
+
+                            <input
+                                id="membershipDays"
+                                type="number"
+                                min="1"
+                                max="3650"
+                                value="30"
+                                inputmode="numeric"
+                            >
+
+                            <span>DAYS</span>
+
+                        </div>
+
+                        <small>
+                            Enter the number of days this membership should remain active.
+                        </small>
+
+                    </div>
+
+
+                    <div class="activation-preview-grid">
+
+                        <div class="activation-preview-item">
+                            <span>
+                                START DATE
+                            </span>
+
+                            <strong id="activationStartDate">
+                                —
+                            </strong>
+                        </div>
+
+
+                        <div class="activation-preview-item">
+                            <span>
+                                END DATE
+                            </span>
+
+                            <strong id="activationEndDate">
+                                —
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activation-note">
+                        The member's dashboard countdown will automatically decrease each day based on this end date.
+                    </div>
+
+
+                    <div
+                        id="activationError"
+                        class="activation-error"
+                    ></div>
+
+
+                    <div class="activation-buttons">
+
+                        <button
+                            id="cancelActivationButton"
+                            class="admin-outline-button"
+                            type="button"
+                        >
+                            CANCEL
+                        </button>
+
+                        <button
+                            id="confirmActivationButton"
+                            class="admin-action-button yellow"
+                            type="button"
+                        >
+                            ACTIVATE MEMBERSHIP
                         </button>
 
                     </div>

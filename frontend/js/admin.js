@@ -37,6 +37,7 @@ async function init() {
     setupNavigation();
     setupButtons();
     setupModal();
+    setupActivationModal();
 
     await Promise.all([
         loadMembers(),
@@ -159,7 +160,7 @@ async function loadMembers() {
 
     table.innerHTML = `
         <tr>
-            <td colspan="6" class="table-loading">
+            <td colspan="7" class="table-loading">
                 Loading members...
             </td>
         </tr>
@@ -207,7 +208,7 @@ async function loadMembers() {
 
         table.innerHTML = `
             <tr>
-                <td colspan="6" class="table-error">
+                <td colspan="7" class="table-error">
                     Unable to load members.
                 </td>
             </tr>
@@ -278,7 +279,7 @@ function renderMembers() {
 
         table.innerHTML = `
             <tr>
-                <td colspan="6" class="empty-table">
+                <td colspan="7" class="empty-table">
                     No members found.
                 </td>
             </tr>
@@ -313,7 +314,7 @@ function renderMembers() {
 
                 <tr>
 
-                    <td>
+                    <td data-label="Member">
 
                         <div class="member-cell">
 
@@ -344,12 +345,12 @@ function renderMembers() {
                     </td>
 
 
-                    <td>
+                    <td data-label="Plan">
                         ${escapeHtml(plan)}
                     </td>
 
 
-                    <td>
+                    <td data-label="Status">
 
                         <span
                             class="status-pill status-${status}"
@@ -360,17 +361,22 @@ function renderMembers() {
                     </td>
 
 
-                    <td>
+                    <td data-label="Ends">
                         ${endDate}
                     </td>
 
 
-                    <td class="days-cell">
+                    <td data-label="Days" class="days-cell">
                         ${days}
                     </td>
 
 
-                    <td>
+                    <td data-label="Remaining" class="days-cell">
+                        ${formatRemaining(subscription)}
+                    </td>
+
+
+                    <td data-label="Action">
 
                         <button
                             class="table-action"
@@ -525,6 +531,38 @@ function getEndDate(subscription) {
                 year: 'numeric'
             }
         );
+
+}
+
+
+// ==========================================
+// REMAINING (formatted months + days)
+// ==========================================
+
+function formatRemaining(subscription) {
+
+    const days = getDaysRemaining(subscription);
+
+    if (days === '—') {
+        return '—';
+    }
+
+    if (days <= 0) {
+        return 'EXPIRED';
+    }
+
+    const months = Math.floor(days / 30);
+    const remainingDays = days % 30;
+
+    if (months === 0) {
+        return `${remainingDays} DAY${remainingDays === 1 ? '' : 'S'}`;
+    }
+
+    if (remainingDays === 0) {
+        return `${months} MONTH${months === 1 ? '' : 'S'}`;
+    }
+
+    return `${months} MONTH${months === 1 ? '' : 'S'} ${remainingDays} DAY${remainingDays === 1 ? '' : 'S'}`;
 
 }
 
@@ -835,7 +873,7 @@ function renderRequests() {
 
                 <tr>
 
-                    <td>
+                    <td data-label="Member">
 
                         <div class="request-member">
 
@@ -852,7 +890,7 @@ function renderRequests() {
                     </td>
 
 
-                    <td>
+                    <td data-label="Request">
                         ${escapeHtml(
                             request.request_type ||
                             'renewal'
@@ -860,7 +898,7 @@ function renderRequests() {
                     </td>
 
 
-                    <td>
+                    <td data-label="Plan">
                         ${escapeHtml(
                             request.requested_plan ||
                             'Standard'
@@ -868,7 +906,7 @@ function renderRequests() {
                     </td>
 
 
-                    <td>
+                    <td data-label="Status">
 
                         <span
                             class="status-pill status-${status.toLowerCase()}"
@@ -879,12 +917,12 @@ function renderRequests() {
                     </td>
 
 
-                    <td>
+                    <td data-label="Date">
                         ${date}
                     </td>
 
 
-                    <td>
+                    <td data-label="Action">
 
                         ${
                             status.toLowerCase() ===
@@ -1339,6 +1377,172 @@ async function syncSelectedMember() {
 
         button.textContent =
             'SYNC MEMBERSHIP';
+
+    }
+
+}
+
+
+// ==========================================
+// ACTIVATION MODAL
+// ==========================================
+
+function setupActivationModal() {
+
+    const modal = document.getElementById('activationModal');
+
+    document
+        .getElementById('activateMemberButton')
+        .addEventListener('click', openActivationModal);
+
+    document
+        .getElementById('closeActivationModal')
+        .addEventListener('click', closeActivationModal);
+
+    document
+        .getElementById('cancelActivationButton')
+        .addEventListener('click', closeActivationModal);
+
+    document
+        .querySelector('#activationModal .admin-modal-backdrop')
+        .addEventListener('click', closeActivationModal);
+
+    document
+        .getElementById('membershipDays')
+        .addEventListener('input', updateActivationPreview);
+
+    document
+        .getElementById('confirmActivationButton')
+        .addEventListener('click', confirmActivation);
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && modal.classList.contains('open')) {
+            closeActivationModal();
+        }
+    });
+
+}
+
+
+function openActivationModal() {
+
+    if (!selectedMember) {
+        return;
+    }
+
+    const { profile, subscription } = selectedMember;
+
+    document.getElementById('activationAvatar').textContent =
+        getInitials(profile.full_name);
+
+    document.getElementById('activationMemberName').textContent =
+        profile.full_name || 'MEMBER';
+
+    document.getElementById('activationMemberPlan').textContent =
+        (subscription?.plan_name || 'STANDARD') + ' PLAN';
+
+    document.getElementById('membershipDays').value = 30;
+    document.getElementById('activationError').textContent = '';
+
+    updateActivationPreview();
+
+    // Close the member modal underneath so only one is interactive at a time
+    document.getElementById('memberModal').classList.remove('open');
+    document.getElementById('memberModal').setAttribute('aria-hidden', 'true');
+
+    const modal = document.getElementById('activationModal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+
+}
+
+
+function closeActivationModal() {
+
+    const modal = document.getElementById('activationModal');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+
+}
+
+
+function updateActivationPreview() {
+
+    const days = parseInt(document.getElementById('membershipDays').value, 10) || 0;
+
+    const start = new Date();
+    const end = new Date();
+    end.setDate(end.getDate() + days);
+
+    document.getElementById('activationStartDate').textContent =
+        start.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+    document.getElementById('activationEndDate').textContent =
+        end.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+}
+
+
+async function confirmActivation() {
+
+    if (!selectedMember) {
+        return;
+    }
+
+    const errorBox = document.getElementById('activationError');
+    const days = parseInt(document.getElementById('membershipDays').value, 10);
+
+    if (!days || days < 1) {
+        errorBox.textContent = 'Enter a valid number of days.';
+        return;
+    }
+
+    errorBox.textContent = '';
+
+    const button = document.getElementById('confirmActivationButton');
+    button.disabled = true;
+    button.textContent = 'ACTIVATING...';
+
+    try {
+
+        const startDate = new Date();
+        const endDate = new Date();
+        endDate.setDate(endDate.getDate() + days);
+
+        const { error } =
+            await currentSupabase
+                .from('subscriptions')
+                .upsert({
+                    user_id: selectedMember.profile.id,
+                    plan_name: selectedMember.subscription?.plan_name || 'Standard',
+                    status: 'active',
+                    start_date: startDate.toISOString(),
+                    end_date: endDate.toISOString(),
+                    days_remaining: days,
+                    progress_percentage: 0
+                }, { onConflict: 'user_id' });
+
+        if (error) {
+            throw error;
+        }
+
+        showMessage('Membership activated.', 'success');
+
+        closeActivationModal();
+        selectedMember = null;
+
+        await loadMembers();
+        updateStatistics();
+
+    } catch (error) {
+
+        console.error(error);
+        errorBox.textContent = 'Could not activate membership — try again.';
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'ACTIVATE MEMBERSHIP';
 
     }
 
